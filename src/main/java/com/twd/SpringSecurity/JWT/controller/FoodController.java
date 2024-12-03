@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,42 @@ public class FoodController {
             FoodRequest foodRequest = new FoodRequest(foodName, foodDescription, foodPrice, restaurantId);
             Map<String,Object> dataFood = foodService.uploadFood(file , foodRequest);
             return ResponseEntity.ok(dataFood);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{foodId}")
+    public ResponseEntity<Map<String,Object>> updateFood(
+            @PathVariable Long foodId,
+            @RequestParam("image") MultipartFile file,
+            @RequestParam("foodName") String foodName,
+            @RequestParam("foodDescription") String foodDescription,
+            @RequestParam("foodPrice") Long foodPrice,
+            @RequestParam("restaurantId") Long restaurantId) {
+        try {
+
+            FoodRequest foodRequest = new FoodRequest(foodName, foodDescription, foodPrice, restaurantId);
+
+            foodService.updateFood(foodId , file , foodRequest);
+
+            return ResponseEntity.ok(Map.of("message", "Restaurant updated successfully"));
+        }catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage()));
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to update image: " + e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/{foodId}")
+    public ResponseEntity<Map<String,Object>> deleteFood(@PathVariable Long foodId) {
+        try {
+            foodService.deleteFood(foodId);
+            return new ResponseEntity<>(Map.of("message", "Image deleted"), HttpStatus.OK);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
