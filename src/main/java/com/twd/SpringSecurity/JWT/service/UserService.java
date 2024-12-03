@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.twd.SpringSecurity.JWT.entity.OurUsers;
@@ -20,19 +20,16 @@ public class UserService {
     private EmailService emailService;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public void forgotPassword(String email) throws Exception {
         OurUsers user = ourUserRepo.findByEmail(email)
             .orElseThrow(() -> new UsernameNotFoundException("User not found with Email " + email));
-
         String token = UUID.randomUUID().toString();
-
         user.setResetToken(token);
         user.setTokenExpirationDate(LocalDateTime.now().plusHours(1));
         ourUserRepo.save(user);
-
-        String resetUrl = "http://localhost:3000/resetpass?token=" + token;
+        String resetUrl = "http://localhost:3030/auth/reset-password?token=" + token;
         emailService.sendEmail(user.getEmail(), "Password Reset Request", "Click the link to reset your password: " + resetUrl);
     }
 
@@ -40,11 +37,9 @@ public class UserService {
     public void resetPassword(String token , String password) throws Exception {
         OurUsers user = ourUserRepo.findByResetToken(token)
             .orElseThrow(() -> new IllegalArgumentException("Invailed Token"));
-
         if (user.getTokenExpirationDate().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Token has expried");
         }
-
         user.setPassword(passwordEncoder.encode(password));
         user.setResetToken(null);
         user.setTokenExpirationDate(null);
