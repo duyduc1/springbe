@@ -65,6 +65,10 @@ public class AuthService {
             response.setToken(jwt);
             response.setRefreshToken(refreshToken);
             response.setExpirationTime("24H");
+            response.setEmail(user.getEmail());
+            response.setName(user.getName());
+            response.setNumberphone(user.getNumberphone());
+            response.setRole(user.getRole());
             response.setMessage("Đăng Nhập Thành Công");
         } catch (UsernameNotFoundException e) {
             response.setStatusCode(404);

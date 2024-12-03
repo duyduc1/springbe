@@ -30,7 +30,7 @@ public class Food {
     private List<CartItem> cartItems = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinColumn(name = "restaurant_id" , referencedColumnName = "id" , nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 }

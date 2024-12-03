@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,5 +77,10 @@ public class FoodService {
         Food food = foodRepository.findById(foodId).orElse(null);
         cloudinary.uploader().destroy(food.getPublicId(), ObjectUtils.emptyMap());
         foodRepository.delete(food);
+    }
+
+    public Food findById(Long foodId){
+        Optional<Food> food = foodRepository.findById(foodId);
+        return food.orElse(null);
     }
 }
