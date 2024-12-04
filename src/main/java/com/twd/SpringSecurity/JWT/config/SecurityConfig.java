@@ -33,7 +33,7 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/**", "/public/**" , "/api/cartItem/**" , "/useradmin/**" , "/useradminfood/**" ).permitAll()
+                        .requestMatchers("/auth/**", "/public/**" , "/api/cartItem/**","/api/cartItem/**" , "/useradmin/**" , "/useradminfood/**" , "/api/cart/**").permitAll()
                         .requestMatchers("/admin/**" , "/api/users/**" , "/api/uploadRestaurant/**" , "/api/uploadFood/**" ).hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAuthority("USER")
                         .requestMatchers("/adminuser/**" ).hasAnyAuthority("USER", "ADMIN")

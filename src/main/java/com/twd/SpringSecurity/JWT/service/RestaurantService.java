@@ -60,7 +60,6 @@ public class RestaurantService {
                 .map(foodMapper::toDto)
                 .collect(Collectors.toList());
 
-        // Gán danh sách món ăn vào `RestaurantRequest`
         restaurantRequest.setFoodRequests(foodRequests);
 
         return restaurantRequest;
