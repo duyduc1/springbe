@@ -8,12 +8,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/cartItem")
 public class CartItemController {
 
     @Autowired
     private CartItemService cartItemService;
+
+    @GetMapping
+    public ResponseEntity<List<CartItemRequest>> getAllCartItems() {
+        List<CartItemRequest> listCartItems = cartItemService.getAllCartItems();
+        return new ResponseEntity<>(listCartItems, HttpStatus.OK);
+    }
+
+    @GetMapping("/{cartItemId}")
+    public ResponseEntity<CartItemRequest> getCartItem(@PathVariable Long cartItemId) {
+        CartItemRequest cartItemRequestById = cartItemService.getCartItemById(cartItemId);
+        return new ResponseEntity<>(cartItemRequestById, HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<CartItem> addCartItem(@RequestBody CartItemRequest cartItemRequest) {

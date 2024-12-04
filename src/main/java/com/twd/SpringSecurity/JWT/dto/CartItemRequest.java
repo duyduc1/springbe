@@ -11,5 +11,11 @@ public class CartItemRequest {
     private Long cartItemId;
     private int quantity;
     private Long foodId;
+    private String foodName;
+    private double foodPrice;
+    private String foodDescription;
+    private String url;
+    private String publicId;
     private Long cartId;
+
 }

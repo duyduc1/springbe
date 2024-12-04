@@ -64,11 +64,11 @@ public class FoodService {
     public void updateFood(Long foodId , MultipartFile file , FoodRequest foodRequest) throws IOException {
         Food food = foodRepository.findById(foodId).orElse(null);
 
-        if(file != null && !file.isEmpty()){
+        if (file != null && !file.isEmpty()) {
             cloudinary.uploader().destroy(food.getPublicId(), ObjectUtils.emptyMap());
-            Map<String,Object> newDataFood = this.cloudinary.uploader().upload(file.getBytes(), java.util.Map.of());
-            food.setUrl((String) newDataFood.get("url"));
-            food.setPublicId((String) newDataFood.get("public_id"));
+            Map<String, Object> newData = this.cloudinary.uploader().upload(file.getBytes(), Map.of());
+            food.setUrl((String) newData.get("url"));
+            food.setPublicId((String) newData.get("public_id"));
         }
         if(foodRequest.getFoodDescription() != null){
             food.setFoodDescription(foodRequest.getFoodDescription());

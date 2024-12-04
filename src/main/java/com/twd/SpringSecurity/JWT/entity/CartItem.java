@@ -18,11 +18,12 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
     private int quantity;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id" , referencedColumnName = "cartId")
+    @JsonIgnore
     private Cart cart;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "food_id" , referencedColumnName = "foodId")
     @JsonIgnore
     private Food food;

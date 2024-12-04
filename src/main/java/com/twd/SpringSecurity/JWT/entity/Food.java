@@ -29,7 +29,7 @@ public class Food {
     @OneToMany(mappedBy = "food" ,cascade = CascadeType.ALL)
     private List<CartItem> cartItems = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id" , referencedColumnName = "id" , nullable = false)
     @JsonIgnore
     private Restaurant restaurant;

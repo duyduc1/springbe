@@ -8,6 +8,11 @@ public class FoodRequest {
     private String url;
     private String publicId;
     private Long restaurantId;
+    private String resTauRantName;
+    private String address;
+    private Integer numberphone;
+    private String kindOfFood;
+
 
     public FoodRequest() {
 
@@ -73,6 +78,38 @@ public class FoodRequest {
 
     public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public String getResTauRantName() {
+        return resTauRantName;
+    }
+
+    public void setResTauRantName(String resTauRantName) {
+        this.resTauRantName = resTauRantName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getNumberphone() {
+        return numberphone;
+    }
+
+    public void setNumberphone(Integer numberphone) {
+        this.numberphone = numberphone;
+    }
+
+    public String getKindOfFood() {
+        return kindOfFood;
+    }
+
+    public void setKindOfFood(String kindOfFood) {
+        this.kindOfFood = kindOfFood;
     }
 }
 

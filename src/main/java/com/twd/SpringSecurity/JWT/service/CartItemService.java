@@ -1,5 +1,6 @@
 package com.twd.SpringSecurity.JWT.service;
 
+import com.twd.SpringSecurity.JWT.Mapper.CartItemMapper;
 import com.twd.SpringSecurity.JWT.Mapper.CartMapper;
 import com.twd.SpringSecurity.JWT.dto.CartItemRequest;
 import com.twd.SpringSecurity.JWT.entity.Cart;
@@ -9,6 +10,9 @@ import com.twd.SpringSecurity.JWT.entity.OurUsers;
 import com.twd.SpringSecurity.JWT.reponsitory.CartIemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CartItemService {
@@ -23,7 +27,19 @@ public class CartItemService {
     private CartService cartService;
 
     @Autowired
-    private CartMapper cartMapper;
+    private CartItemMapper cartItemMapper;
+
+    public List<CartItemRequest> getAllCartItems() {
+        List<CartItem> listCartItems = cartIemRepository.findAll();
+        return listCartItems.stream()
+                .map(cartItemMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public CartItemRequest getCartItemById(Long cartItemId) {
+        CartItem cartItem = cartIemRepository.findById(cartItemId).orElse(null);
+        return cartItemMapper.toDto(cartItem);
+    }
 
     public CartItem addCartItem(CartItemRequest cartItemRequest) {
         CartItem cartItem = new CartItem();
