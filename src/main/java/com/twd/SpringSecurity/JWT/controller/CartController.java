@@ -15,9 +15,9 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<CartRequest> getCartByUser(@PathVariable Long userId) {
-        CartRequest cartRequest = cartService.getCartByUserId(userId);
+    @GetMapping("/user/{cartId}")
+    public ResponseEntity<CartRequest> getCartByUser(@PathVariable Long cartId) {
+        CartRequest cartRequest = cartService.getCartByCartId(cartId);
         return new ResponseEntity<>(cartRequest, HttpStatus.OK);
     }
 
