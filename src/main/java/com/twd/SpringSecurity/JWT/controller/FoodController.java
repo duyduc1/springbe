@@ -32,11 +32,11 @@ public class FoodController {
     }
 
     @PostMapping("/uploadfood")
-    public ResponseEntity<Map<String,Object>> uploadFood(@RequestParam("image")MultipartFile file,
-                                                         @RequestParam("foodName") String foodName,
-                                                         @RequestParam("foodDescription") String foodDescription,
-                                                         @RequestParam("foodPrice") Long foodPrice,
-                                                         @RequestParam("restaurantId") Long restaurantId){
+    public ResponseEntity<Map<String,Object>> uploadFood(@RequestParam(value = "image" , required = false) MultipartFile file,
+                                                         @RequestParam(value = "foodName" , required = false) String foodName,
+                                                         @RequestParam(value = "foodDescription" , required = false) String foodDescription,
+                                                         @RequestParam(value = "foodPrice" , required = false) Long foodPrice,
+                                                         @RequestParam(value = "restaurantId" , required = false) Long restaurantId){
         try {
             FoodRequest foodRequest = new FoodRequest(foodName, foodDescription, foodPrice, restaurantId);
             Map<String,Object> dataFood = foodService.uploadFood(file , foodRequest);
