@@ -1,5 +1,6 @@
 package com.twd.SpringSecurity.JWT.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,5 +24,6 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "food_id" , referencedColumnName = "foodId")
+    @JsonIgnore
     private Food food;
 }

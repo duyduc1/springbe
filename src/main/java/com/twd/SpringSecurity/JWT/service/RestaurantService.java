@@ -72,18 +72,33 @@ public class RestaurantService {
         }
     }
 
-    public void updateRestaurant(Long id , MultipartFile file, RestaurantRequest restaurantRequest) throws IOException {
-        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
-        cloudinary.uploader().destroy(restaurant.getPublicId(), ObjectUtils.emptyMap());
-        Map<String , Object> newData = this.cloudinary.uploader().upload(file.getBytes(),Map.of());
-        restaurant.setUrl((String) newData.get("url"));
-        restaurant.setPublicId((String) newData.get("public_id"));
-        restaurant.setAddress(restaurantRequest.getAddress());
-        restaurant.setNumberphone(restaurantRequest.getNumberphone());
-        restaurant.setKindOfFood(restaurantRequest.getKindOfFood());
-        restaurant.setResTauRantName(restaurantRequest.getResTauRantName());
+    public void updateRestaurant(Long id, MultipartFile file, RestaurantRequest restaurantRequest) throws IOException {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + id));
+
+        if (file != null && !file.isEmpty()) {
+            cloudinary.uploader().destroy(restaurant.getPublicId(), ObjectUtils.emptyMap());
+            Map<String, Object> newData = this.cloudinary.uploader().upload(file.getBytes(), Map.of());
+            restaurant.setUrl((String) newData.get("url"));
+            restaurant.setPublicId((String) newData.get("public_id"));
+        }
+
+        if (restaurantRequest.getAddress() != null) {
+            restaurant.setAddress(restaurantRequest.getAddress());
+        }
+        if (restaurantRequest.getNumberphone() != null) {
+            restaurant.setNumberphone(restaurantRequest.getNumberphone());
+        }
+        if (restaurantRequest.getKindOfFood() != null) {
+            restaurant.setKindOfFood(restaurantRequest.getKindOfFood());
+        }
+        if (restaurantRequest.getResTauRantName() != null) {
+            restaurant.setResTauRantName(restaurantRequest.getResTauRantName());
+        }
+
         restaurantRepository.save(restaurant);
     }
+
 
     public void deleteRestaurant(Long id)  throws IOException {
         Restaurant restaurant = restaurantRepository.findById(id).orElse(null);

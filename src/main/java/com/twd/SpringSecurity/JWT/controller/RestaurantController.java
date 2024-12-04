@@ -48,11 +48,11 @@ public class RestaurantController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateRestaurant(
             @PathVariable Long id,
-            @RequestParam("image") MultipartFile file,
-            @RequestParam("address") String address,
-            @RequestParam("numberphone") Integer numberphone,
-            @RequestParam("kindOfFood") String kindOfFood,
-            @RequestParam("resTauRantName") String resTauRantName) {
+            @RequestParam(value = "image", required = false) MultipartFile file,
+            @RequestParam(value = "address", required = false) String address,
+            @RequestParam(value = "numberphone", required = false) Integer numberphone,
+            @RequestParam(value = "kindOfFood", required = false) String kindOfFood,
+            @RequestParam(value = "resTauRantName", required = false) String resTauRantName) {
         try {
 
             RestaurantRequest restaurantRequest = new RestaurantRequest(address, numberphone, kindOfFood, resTauRantName);
