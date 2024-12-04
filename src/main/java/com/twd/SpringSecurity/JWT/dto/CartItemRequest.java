@@ -11,4 +11,5 @@ public class CartItemRequest {
     private Long cartItemId;
     private int quantity;
     private Long foodId;
+    private Long cartId;
 }
