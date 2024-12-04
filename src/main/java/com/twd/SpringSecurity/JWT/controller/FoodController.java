@@ -31,14 +31,15 @@ public class FoodController {
     }
 
     @PostMapping("/api/uploadFood/uploadfood")
-    public ResponseEntity<Map<String,Object>> uploadFood(@RequestParam(value = "image" , required = false) MultipartFile file,
-                                                         @RequestParam(value = "foodName" , required = false) String foodName,
-                                                         @RequestParam(value = "foodDescription" , required = false) String foodDescription,
-                                                         @RequestParam(value = "foodPrice" , required = false) Long foodPrice,
-                                                         @RequestParam(value = "restaurantId" , required = false) Long restaurantId){
+    public ResponseEntity<Map<String, Object>> uploadFood(
+            @RequestParam(value = "image", required = false) MultipartFile file,
+            @RequestParam(value = "foodName", required = false) String foodName,
+            @RequestParam(value = "foodDescription", required = false) String foodDescription,
+            @RequestParam(value = "foodPrice", required = false) Long foodPrice,
+            @RequestParam(value = "restaurantId", required = false) Long restaurantId) {
         try {
             FoodRequest foodRequest = new FoodRequest(foodName, foodDescription, foodPrice, restaurantId);
-            Map<String,Object> dataFood = foodService.uploadFood(file , foodRequest);
+            Map<String, Object> dataFood = foodService.uploadFood(file, foodRequest);
             return ResponseEntity.ok(dataFood);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
@@ -46,7 +47,7 @@ public class FoodController {
     }
 
     @PutMapping("/api/uploadFood/{foodId}")
-    public ResponseEntity<Map<String,Object>> updateFood(
+    public ResponseEntity<Map<String, Object>> updateFood(
             @PathVariable Long foodId,
             @RequestParam("image") MultipartFile file,
             @RequestParam("foodName") String foodName,
@@ -57,10 +58,10 @@ public class FoodController {
 
             FoodRequest foodRequest = new FoodRequest(foodName, foodDescription, foodPrice, restaurantId);
 
-            foodService.updateFood(foodId , file , foodRequest);
+            foodService.updateFood(foodId, file, foodRequest);
 
             return ResponseEntity.ok(Map.of("message", "Restaurant updated successfully"));
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", e.getMessage()));
         } catch (IOException e) {
@@ -70,7 +71,7 @@ public class FoodController {
     }
 
     @DeleteMapping("/api/uploadFood/{foodId}")
-    public ResponseEntity<Map<String,Object>> deleteFood(@PathVariable Long foodId) {
+    public ResponseEntity<Map<String, Object>> deleteFood(@PathVariable Long foodId) {
         try {
             foodService.deleteFood(foodId);
             return new ResponseEntity<>(Map.of("message", "Image deleted"), HttpStatus.OK);
