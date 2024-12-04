@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**", "/public/**" , "/api/cartItem/**" ).permitAll()
                         .requestMatchers("/admin/**" , "/api/users/**" , "/api/uploadRestaurant/**" , "/api/uploadFood/**" ).hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAuthority("USER")
-                        .requestMatchers("/adminuser/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/adminuser/**" , "/useradmin/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

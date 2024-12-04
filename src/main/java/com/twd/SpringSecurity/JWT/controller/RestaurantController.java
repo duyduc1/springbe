@@ -13,24 +13,23 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/uploadRestaurant")
 @RequiredArgsConstructor
 public class RestaurantController {
     private final RestaurantService restaurantService;
 
-    @GetMapping
+    @GetMapping("/useradmin")
     public ResponseEntity<List<RestaurantRequest>> getAllRestaurants() {
         List<RestaurantRequest> restaurant = restaurantService.getAllRestaurants();
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/useradmin/{id}")
     public ResponseEntity<RestaurantRequest> getRestaurantById(@PathVariable Long id) {
         RestaurantRequest restaurant = restaurantService.getRestaurantById(id);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/api/uploadRestaurant/upload")
     public ResponseEntity<Map<String, Object>> uploadRestaurantImage(@RequestParam("image") MultipartFile file,
                                                                      @RequestParam("address") String address,
                                                                      @RequestParam("numberphone") Integer numberphone,
@@ -45,7 +44,7 @@ public class RestaurantController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/uploadRestaurant/{id}")
     public ResponseEntity<Map<String, Object>> updateRestaurant(
             @PathVariable Long id,
             @RequestParam(value = "image", required = false) MultipartFile file,
@@ -69,7 +68,7 @@ public class RestaurantController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/uploadRestaurant/{id}")
     public ResponseEntity<Map<String, Object>> deleteRestaurant(@PathVariable Long id) {
         try {
             restaurantService.deleteRestaurant(id);

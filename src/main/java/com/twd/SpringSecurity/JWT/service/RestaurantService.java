@@ -51,9 +51,21 @@ public class RestaurantService {
 
 
     public RestaurantRequest getRestaurantById(Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
-        return restaurantMapper.toDTO(restaurant);
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Restaurant not found with id: " + id));
+
+        RestaurantRequest restaurantRequest = restaurantMapper.toDTO(restaurant);
+
+        List<FoodRequest> foodRequests = restaurant.getFoodList().stream()
+                .map(foodMapper::toDto)
+                .collect(Collectors.toList());
+
+        // Gán danh sách món ăn vào `RestaurantRequest`
+        restaurantRequest.setFoodRequests(foodRequests);
+
+        return restaurantRequest;
     }
+
 
     public Map<String , Object> upload(MultipartFile file, RestaurantRequest restaurantUploadDTO) {
         try {

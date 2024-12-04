@@ -13,25 +13,24 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/uploadFood")
 @RequiredArgsConstructor
 public class FoodController {
 
     private final FoodService foodService;
 
-    @GetMapping
+    @GetMapping("/useradmin")
     public ResponseEntity<List<FoodRequest>> getAllFood() {
         List<FoodRequest> food = foodService.getFoodList();
         return new ResponseEntity<>(food, HttpStatus.OK);
     }
 
-    @GetMapping("/{foodId}")
+    @GetMapping("/useradmin/{foodId}")
     public ResponseEntity<FoodRequest> getFoodById(@PathVariable Long foodId) {
         FoodRequest foodRequest = foodService.getFoodById(foodId);
         return new ResponseEntity<>(foodRequest, HttpStatus.OK);
     }
 
-    @PostMapping("/uploadfood")
+    @PostMapping("/api/uploadFood/uploadfood")
     public ResponseEntity<Map<String,Object>> uploadFood(@RequestParam(value = "image" , required = false) MultipartFile file,
                                                          @RequestParam(value = "foodName" , required = false) String foodName,
                                                          @RequestParam(value = "foodDescription" , required = false) String foodDescription,
@@ -46,7 +45,7 @@ public class FoodController {
         }
     }
 
-    @PutMapping("/{foodId}")
+    @PutMapping("/api/uploadFood/{foodId}")
     public ResponseEntity<Map<String,Object>> updateFood(
             @PathVariable Long foodId,
             @RequestParam("image") MultipartFile file,
@@ -70,7 +69,7 @@ public class FoodController {
         }
     }
 
-    @DeleteMapping("/{foodId}")
+    @DeleteMapping("/api/uploadFood/{foodId}")
     public ResponseEntity<Map<String,Object>> deleteFood(@PathVariable Long foodId) {
         try {
             foodService.deleteFood(foodId);
