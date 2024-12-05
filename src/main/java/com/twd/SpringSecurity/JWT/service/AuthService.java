@@ -52,7 +52,7 @@ public class AuthService {
 
     public ReqRes signIn(ReqRes signinRequest) {
         ReqRes response = new ReqRes();
-
+        // OurUsers ourUser = dataUserService.findById(cartRequest.getUserId());
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(signinRequest.getEmail(), signinRequest.getPassword()));
