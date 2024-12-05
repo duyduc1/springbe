@@ -26,4 +26,10 @@ public class CartController {
         Cart cart = cartService.addCart(cartRequest);
         return new ResponseEntity<>(cart, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{cartId}")
+    public ResponseEntity<String> deleteCart(@PathVariable Long cartId) {
+        cartService.clearCart(cartId);
+        return new ResponseEntity<>("Cart deleted", HttpStatus.OK);
+    }
 }
