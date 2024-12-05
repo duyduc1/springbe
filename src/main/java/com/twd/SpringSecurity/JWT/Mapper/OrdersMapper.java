@@ -1,7 +1,7 @@
 package com.twd.SpringSecurity.JWT.Mapper;
 
+import com.twd.SpringSecurity.JWT.dto.OrdersRequest;
 import com.twd.SpringSecurity.JWT.entity.Orders;
-import com.twd.SpringSecurity.JWT.entity.OrdersRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

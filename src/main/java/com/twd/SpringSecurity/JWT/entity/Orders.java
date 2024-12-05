@@ -17,11 +17,10 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long OrderId;
-    private String OrderNumber;
-    private Double OrderPrice;
+    private String OrderNumber; // số lượng order
+    private Double OrderPrice; // Tổng giá order
     private String OrderStatus;
-
-    private LocalDateTime orderDate;
+    private String Localtion;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id" , referencedColumnName = "id")

@@ -65,8 +65,10 @@ public class AuthService {
             response.setToken(jwt);
             response.setRefreshToken(refreshToken);
             response.setExpirationTime("24H");
+            response.setId(user.getId());
             response.setEmail(user.getEmail());
             response.setName(user.getName());
+            response.setCartId(user.getCart().getCartId());
             response.setNumberphone(user.getNumberphone());
             response.setRole(user.getRole());
             response.setMessage("Đăng Nhập Thành Công");
