@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +26,17 @@ public class OurUsers implements UserDetails {
     private Integer numberphone;
     private String role;
     @OneToOne(mappedBy = "user" , cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Cart cart;
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Orders> orders;
+
+    public List<Orders> getListOrders() {
+        return orders;
+    }
+
     private String resetToken;
 
     private LocalDateTime tokenExpirationDate;

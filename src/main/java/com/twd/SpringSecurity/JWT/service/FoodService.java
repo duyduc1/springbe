@@ -36,7 +36,7 @@ public class FoodService {
         return foodList.stream()
                 .map(foodMapper::toDto)
                 .collect(Collectors.toList());
-    }
+    }   
 
     public FoodRequest getFoodById(Long foodId){
         Food food = foodRepository.findById(foodId).orElse(null);

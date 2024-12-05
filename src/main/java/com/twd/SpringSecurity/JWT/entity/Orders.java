@@ -5,31 +5,27 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
-@Data
 @Entity
+@Table(name = "oderstatus")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cart")
-public class Cart {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
+    private Long OrderId;
+    private String OrderNumber;
+    private Double OrderPrice;
+    private String OrderStatus;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    private LocalDateTime orderDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id" , referencedColumnName = "id")
     @JsonIgnore
-    @ToString.Exclude
     private OurUsers user;
-
-    @OneToMany(mappedBy = "cart" ,cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<CartItem> cartItems;
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
 
 }
