@@ -29,13 +29,13 @@ public class OurUsers implements UserDetails {
     @ToString.Exclude
     private Cart cart;
 
+    public Cart getCart() {
+        return cart;
+    }
+
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Orders> orders;
-
-    public List<Orders> getListOrders() {
-        return orders;
-    }
 
     private String resetToken;
 
