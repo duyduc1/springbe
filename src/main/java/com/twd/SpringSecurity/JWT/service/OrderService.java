@@ -39,6 +39,7 @@ public class OrderService {
 
     public Orders addOrders(OrdersRequest ordersRequest) {
         Orders orders = new Orders();
+        orders.setOrderId(ordersRequest.getOrderId());
         orders.setOrderNumber(ordersRequest.getOrderNumber());
         orders.setOrderStatus(ordersRequest.getOrderStatus());
         orders.setOrderPrice(ordersRequest.getOrderPrice());
@@ -48,7 +49,7 @@ public class OrderService {
         return orderRepository.save(orders);
     }
 
-    public boolean updateStatusOder(Long orderId , OrdersRequest ordersRequest) {
+    public boolean updateStatusOder(Long orderId, OrdersRequest ordersRequest) {
         Orders orders = orderRepository.findById(orderId).orElse(null);
         orders.setOrderStatus(ordersRequest.getOrderStatus());
         orderRepository.save(orders);

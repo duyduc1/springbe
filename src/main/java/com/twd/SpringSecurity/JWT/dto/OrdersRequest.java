@@ -23,6 +23,8 @@ public class OrdersRequest {
     @JsonProperty("Localtion")
     private String localtion;
 
+    private Long orderId;
+
     private Long userId;
     private String email;
     private Integer numberphone;

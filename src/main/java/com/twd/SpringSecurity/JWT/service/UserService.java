@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     private OurUserRepo ourUserRepo;
 
-    @Autowired 
+    @Autowired
     private EmailService emailService;
 
     @Autowired
@@ -24,19 +24,19 @@ public class UserService {
 
     public void forgotPassword(String email) throws Exception {
         OurUsers user = ourUserRepo.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found with Email " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with Email " + email));
         String token = UUID.randomUUID().toString();
         user.setResetToken(token);
         user.setTokenExpirationDate(LocalDateTime.now().plusHours(1));
         ourUserRepo.save(user);
-        String resetUrl = "http://localhost:3030/auth/reset-password?token=" + token;
-        emailService.sendEmail(user.getEmail(), "Password Reset Request", "Click the link to reset your password: " + resetUrl);
+        String resetUrl = "http://localhost:3000/auth/reset-password?token=" + token;
+        emailService.sendEmail(user.getEmail(), "Password Reset Request",
+                "Click the link to reset your password: " + resetUrl);
     }
 
-    
-    public void resetPassword(String token , String password) throws Exception {
+    public void resetPassword(String token, String password) throws Exception {
         OurUsers user = ourUserRepo.findByResetToken(token)
-            .orElseThrow(() -> new IllegalArgumentException("Invailed Token"));
+                .orElseThrow(() -> new IllegalArgumentException("Invailed Token"));
         if (user.getTokenExpirationDate().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Token has expried");
         }
