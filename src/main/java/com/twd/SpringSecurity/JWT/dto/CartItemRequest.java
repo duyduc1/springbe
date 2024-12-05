@@ -17,5 +17,4 @@ public class CartItemRequest {
     private String url;
     private String publicId;
     private Long cartId;
-
 }
