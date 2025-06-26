@@ -16,7 +16,7 @@ import com.twd.SpringSecurity.JWT.service.AuthService;
 import com.twd.SpringSecurity.JWT.service.UserService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
