@@ -33,10 +33,10 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/**", "/public/**", "/api/user/order/**" ,"/api/cartItem/**" , "/useradmin/**" , "/useradminfood/**" , "/api/cart/**").permitAll()
-                        .requestMatchers("/admin/**" , "/api/users/**" , "/api/uploadRestaurant/**" , "/api/uploadFood/**" ).hasAuthority("ADMIN")
-                        .requestMatchers("/user/**").hasAuthority("USER")
-                        .requestMatchers("/adminuser/**" ).hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/api/auth/**", "/api/public/**", "/api/user/order/**" ,"/api/cartItem/**" , "/api/useradmin/**" , "/api/useradminfood/**" , "/api/cart/**").permitAll()
+                        .requestMatchers("/api/admin/**" , "/api/users/**" , "/api/uploadRestaurant/**" , "/api/uploadFood/**" ).hasAuthority("ADMIN")
+                        .requestMatchers("/api/user/**").hasAuthority("USER")
+                        .requestMatchers("/api/adminuser/**" ).hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
