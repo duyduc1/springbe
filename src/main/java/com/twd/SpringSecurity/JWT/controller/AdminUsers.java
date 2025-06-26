@@ -17,24 +17,24 @@ public class AdminUsers {
         @Autowired
         private ProductRepo productRepo;
 
-        @GetMapping("/public/product")
+        @GetMapping("/api/public/product")
         public ResponseEntity<Object> getAllproducts(){
             return ResponseEntity.ok(productRepo.findAll());
         }
 
-        @PostMapping("/admin/saveproduct")
+        @PostMapping("/api/admin/saveproduct")
         public ResponseEntity<Object> signUp(@RequestBody ReqRes productRequest){
             Product productToSave = new Product();
             productToSave.setName(productRequest.getName());
             return ResponseEntity.ok(productRepo.save(productToSave));
         }
 
-        @GetMapping("/user/alone")
+        @GetMapping("/api/user/alone")
         public ResponseEntity<Object> userAlone(){
             return ResponseEntity.ok("Users alone can access this Api only");
         }
 
-        @GetMapping("/adminuser/both")
+        @GetMapping("/api/adminuser/both")
         public ResponseEntity<Object> bothAdminaAndUsersApi(){
             return ResponseEntity.ok("Both Admin and Users can access the api");
         }
