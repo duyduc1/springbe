@@ -18,13 +18,13 @@ public class FoodController {
 
     private final FoodService foodService;
 
-    @GetMapping("/useradminfood")
+    @GetMapping("/api/useradminfood")
     public ResponseEntity<List<FoodRequest>> getAllFood() {
         List<FoodRequest> food = foodService.getFoodList();
         return new ResponseEntity<>(food, HttpStatus.OK);
     }
 
-    @GetMapping("/useradminfood/{foodId}")
+    @GetMapping("/api/useradminfood/{foodId}")
     public ResponseEntity<FoodRequest> getFoodById(@PathVariable Long foodId) {
         FoodRequest foodRequest = foodService.getFoodById(foodId);
         return new ResponseEntity<>(foodRequest, HttpStatus.OK);
